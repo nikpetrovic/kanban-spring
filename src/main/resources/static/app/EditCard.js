@@ -14,11 +14,11 @@ class EditCard extends Component {
   handleSubmit(e) {
   	e.preventDefault();
   	this.props.cardCallback.updateCard(this.state);
-  	this.props.history.pushState(null, '/');
+  	browserHistory.push('/');
   }
 
   hanldeClose(e) {
-  	this.props.history.pushState(null, '/');
+	browserHistory.push('/');
   }
 
   render() {

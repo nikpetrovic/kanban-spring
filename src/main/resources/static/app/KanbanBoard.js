@@ -29,7 +29,7 @@ class KanbanBoard extends Component {
 
 KanbanBoard.propTypes = {
 	cards: PropTypes.arrayOf(PropTypes.object),
-  taskCallbacks: PropTypes.object
+	taskCallbacks: PropTypes.object
 };
 
 export default DragDropContext(HTML5Backend)(KanbanBoard);

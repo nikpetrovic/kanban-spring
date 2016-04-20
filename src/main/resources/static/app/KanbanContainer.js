@@ -67,6 +67,7 @@ class KanbanContainer extends Component {
         
         fetch(`${API_URL}/cards/${cardId}/tasks`, {
             method: 'post',
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newTask)
         }).then((response) => {
             if (response.ok) {
@@ -87,7 +88,7 @@ class KanbanContainer extends Component {
         let nextState = update(this.state.cards, {[cardIndex]: {tasks: {$splice: [[taskIndex, 1]]}}});
         this.setState({cards: nextState});
         
-        fetch(`${API_URL}/cards/${cardId}/tasks`, {
+        fetch(`${API_URL}/cards/${cardId}/tasks/${taskId}`, {
             method: 'delete'
         });
     }
@@ -113,14 +114,14 @@ class KanbanContainer extends Component {
         fetch(`${API_URL}/cards/${cardId}/tasks/${taskId}/${newDoneValue}`);
     }
 
-    addCard() {
+    addCard(card) {
         let prevState = this.state;
         if(card.id === null) {
             let card = Object.assign({}, card, {id: Data.now()});
         }
 
         let nextState = update(this.state.cards, {
-            $push: {card}
+            $push: [card]
         });
 
         this.setState({cards: nextState});
@@ -135,15 +136,15 @@ class KanbanContainer extends Component {
             if (response.ok) {
                 return response.json() 
             } else {
-                // Throw an error if server response wasn't 'ok' // so we can
-				// revert back the optimistic changes // made to the UI.
+                // Throw an error if server response wasn't 'ok' so we can
+				// revert back the optimistic changes made to the UI.
                 throw new Error("Server response wasn't OK")
             } 
         })
         .then((responseData) => {
             // When the server returns the definitive ID
             // used for the new Card on the server, update it on React
-			// card.id=responseData.id
+			card.id = responseData.id
             this.setState({cards:nextState});
         })
         .catch((error) => {

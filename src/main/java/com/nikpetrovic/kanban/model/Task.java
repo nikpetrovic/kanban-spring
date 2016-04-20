@@ -10,42 +10,41 @@ package com.nikpetrovic.kanban.model;
  */
 public class Task {
     private boolean done;
-    private int id;
+    private long id;
     private String name;
 
     public Task() {
-	super();
+        super();
     }
 
-    public Task(int id, String name, boolean done) {
-	super();
-	this.id = id;
-	this.name = name;
-	this.done = done;
+    public Task(long id, String name, boolean done) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.done = done;
     }
 
-    public int getId() {
-	return id;
+    public long getId() {
+        return id;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public boolean isDone() {
-	return done;
+        return done;
     }
 
     public void setDone(boolean done) {
-	this.done = done;
+        this.done = done;
     }
 
-    public void setId(int id) {
-	this.id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
-
 }

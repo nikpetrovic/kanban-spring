@@ -1,5 +1,6 @@
 import React from 'react';
 import CardForm from './CardForm';
+import { browserHistory } from 'react-router';
 
 export default class NewCard extends React.Component {    
   componentWillMount() {
@@ -20,11 +21,11 @@ export default class NewCard extends React.Component {
   handleSubmit(e) {
   	e.preventDefault();
   	this.props.cardCallbacks.addCard(this.state);
-    this.props.history.pushState(null, '/');
+  	browserHistory.push('/');
   }
 
   handleClose() {
-  	this.props.history.pushState(null, '/');
+	browserHistory.push('/');
   }
 
   render() {
