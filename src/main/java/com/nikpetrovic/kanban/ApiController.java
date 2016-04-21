@@ -129,6 +129,20 @@ public class ApiController {
     public List<Card> getCards() {
         return cards;
     }
+    
+    @RequestMapping(value = "/cards/{cardId}", method = RequestMethod.PUT)
+    public void updateCard(@PathVariable long cardId, @RequestBody Card card) {
+        Optional<Card> cardFound = cards.stream().filter(c -> c.getId() == cardId).findFirst();
+        if (cardFound.isPresent()) {
+            Card c = cardFound.get();
+            c.setStatus(card.getStatus());
+            c.setColor(c.getColor());
+            c.setDescription(c.getDescription());
+            c.setTitle(card.getTitle());
+        } else {
+            throw new RuntimeException(String.format("Card with id %d is not found.", cardId));
+        }
+    }
 
     @RequestMapping(value = "/cards/{cardId}/tasks/{taskId}/{value}")
     public void updateTaskState(@PathVariable int cardId, @PathVariable int taskId, @PathVariable boolean value) {

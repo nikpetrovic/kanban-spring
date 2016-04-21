@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import CardForm from './CardForm';
+import { browserHistory } from 'react-router';
 
 class EditCard extends Component {
   componentWillMount() {
   	let card = this.props.cards.find((card) => card.id == this.props.params.card_id);
-  	this.setState(...card);
+  	this.setState(card);
   }
 
   handleChange(field, value) {
@@ -13,11 +14,11 @@ class EditCard extends Component {
 
   handleSubmit(e) {
   	e.preventDefault();
-  	this.props.cardCallback.updateCard(this.state);
+  	this.props.cardCallbacks.updateCard(this.state);
   	browserHistory.push('/');
   }
 
-  hanldeClose(e) {
+  handleClose(e) {
 	browserHistory.push('/');
   }
 
@@ -27,7 +28,7 @@ class EditCard extends Component {
       	buttonLabel="Edit Card"
       	handleChange={this.handleChange.bind(this)}
       	handleSubmit={this.handleSubmit.bind(this)}
-      	hanldeClose={this.hanldeClose.bind(this)} />
+      	handleClose={this.handleClose.bind(this)} />
     );
   }
 }
